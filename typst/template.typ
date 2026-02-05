@@ -77,7 +77,7 @@
     pagebreak(weak: true)
     v(1cm)
     block[
-      #set text(size: 42pt, weight: "extrabold", fill: wikio-navy, tracking: -0.02em)
+      #set text(size: 42pt, weight: "extrabold", fill: wikio-navy, tracking: -0.02em, hyphenate: false)
       #it.body
     ]
     v(0.3cm)
@@ -88,7 +88,7 @@
   show heading.where(level: 2): it => {
     v(1cm)
     block[
-      #set text(size: 16pt, weight: "bold", fill: wikio-navy)
+      #set text(size: 16pt, weight: "bold", fill: wikio-navy, hyphenate: false)
       #it.body
     ]
     v(0.5cm)
@@ -97,7 +97,7 @@
   show heading.where(level: 3): it => {
     v(0.6cm)
     block[
-      #set text(size: 12pt, weight: "bold", fill: wikio-navy)
+      #set text(size: 12pt, weight: "bold", fill: wikio-navy, hyphenate: false)
       #it.body
     ]
     v(0.2cm)
@@ -106,7 +106,7 @@
   show heading.where(level: 4): it => {
     v(0.4cm)
     block[
-      #set text(size: 11pt, weight: "bold", fill: wikio-navy)
+      #set text(size: 11pt, weight: "bold", fill: wikio-navy, hyphenate: false)
       #it.body
     ]
     v(0.15cm)
@@ -528,7 +528,6 @@
   let desc-color = if style == "dark" { rgb("#d1d5db") } else { text-body }
 
   current-section.update(title)
-  pagebreak()
   page(
     margin: (x: 50pt, y: 60pt),
     header: none,
@@ -543,6 +542,7 @@
     #v(0.8cm)
 
     // Title
+    #set text(hyphenate: false)
     #text(size: 42pt, weight: "extrabold", fill: text-color, tracking: -0.02em)[#title]
 
     #v(0.5cm)

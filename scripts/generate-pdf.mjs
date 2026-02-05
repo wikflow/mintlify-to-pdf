@@ -85,6 +85,11 @@ const SECTION_DESCRIPTIONS = {
   'Features': 'Explore the powerful features that make WIKIO AI the AI-native video management platform.',
   'Concepts': 'Understand the building blocks of WIKIO AI: users, workspaces, and assets.',
   'Troubleshooting': 'Solutions to common issues and how to get help.',
+  'Overview': 'Introduction to the WIKIO AI enterprise platform.',
+  'Enterprise Platform': 'APIs, integrations, security, compliance, and infrastructure for enterprise deployments.',
+  'Enterprise Features': 'Workflows, brand portals, watermarking, distribution, AI intelligence, and content lifecycle.',
+  'Enterprise Admin': 'Metadata schemas, bulk operations, and library management at scale.',
+  'Why WIKIO AI': 'How WIKIO AI compares to traditional DAM platforms and why video teams are making the switch.',
 };
 
 /**
@@ -540,7 +545,10 @@ function generateTypstDocument(sections) {
 
     // Add content for each file
     for (const doc of section.docs) {
-      const typstContent = mdxToTypst(doc.content, doc.title);
+      let typstContent = mdxToTypst(doc.content, doc.title);
+      // Strip the first h1 heading from converted content — the script adds its own
+      // with a label for cross-referencing, so the MDX's # Title is a duplicate
+      typstContent = typstContent.replace(/^= .+$/m, '').trim();
       // Add the document title as a level-1 heading with a label for internal links
       const docLabel = doc.path.replace('.mdx', '').replace(/\//g, '-');
       typst += `= ${doc.title} <${docLabel}>\n\n`;
