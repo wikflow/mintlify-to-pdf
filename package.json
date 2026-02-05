@@ -1,0 +1,25 @@
+{
+  "name": "mintlify-to-pdf",
+  "version": "1.0.0",
+  "description": "Convert Mintlify MDX documentation to a professional PDF via Typst",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-pdf.mjs"
+  },
+  "keywords": [
+    "mintlify",
+    "pdf",
+    "typst",
+    "documentation"
+  ],
+  "author": "WIKIO AI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wikflow/mintlify-to-pdf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wikflow/mintlify-to-pdf/issues"
+  },
+  "homepage": "https://github.com/wikflow/mintlify-to-pdf#readme"
+}

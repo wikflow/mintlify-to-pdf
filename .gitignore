@@ -1,0 +1,4 @@
+node_modules/
+output/
+typst/documentation.typ
+.DS_Store
