@@ -226,6 +226,10 @@ GIT_CONFIG_GLOBAL=/dev/null git -c "credential.helper=!gh auth git-credential" p
 
 (SSH keys for the `github.com-wikflow` alias aren't configured; use HTTPS via `gh` credential helper instead.)
 
+## Future Tasks
+
+- **Switch body font from Inter to Manrope** — The WIKIO AI whitepaper uses Manrope. Typst does not support variable fonts, so static weight instances are needed. Generating static fonts from the variable `Manrope-VariableFont_wght.ttf` via `fontTools.varLib.mutator.instantiateVariableFont` + stripping `fvar`/`gvar` tables did not produce working bold weights (all instances reported as `usWeightClass: 200` / `subfamily: Regular` even after manual metadata fixes). Next steps: download pre-built static Manrope `.ttf` files from Google Fonts (the static/ subfolder in the GitHub repo github.com/nicolehansendev/manrope), or use a different font instancing tool. The template change is trivial: `font: "Inter"` → `font: "Manrope"` in `template.typ` line 64.
+
 ## Related Repos
 
 - **[wikflow/docs](https://github.com/wikflow/docs)** — The Mintlify documentation content (MDX files, images, docs.json). This tool reads from that repo but does not modify it.
