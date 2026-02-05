@@ -73,6 +73,11 @@ const CONFIG = {
   pdfOutputPath: join(TOOL_ROOT, 'output/WIKIO-AI-Documentation.pdf'),
 };
 
+// Sections to exclude from the PDF (by group name, case-sensitive)
+const EXCLUDED_SECTIONS = [
+  'Troubleshooting',
+];
+
 // Section descriptions for each group (optional customization)
 const SECTION_DESCRIPTIONS = {
   'Getting started': 'Welcome to WIKIO AI and learn the fundamentals to get up and running quickly.',
@@ -92,7 +97,9 @@ function loadSectionsFromDocsJson() {
   // Get the groups from the first tab's navigation
   const groups = docsJson.navigation?.tabs?.[0]?.groups || [];
 
-  const sections = groups.map((group, index) => {
+  const filtered = groups.filter(group => !EXCLUDED_SECTIONS.includes(group.group));
+
+  const sections = filtered.map((group, index) => {
     const sectionNumber = String(index + 1).padStart(2, '0');
     const groupId = group.group.toLowerCase().replace(/\s+/g, '-');
 
