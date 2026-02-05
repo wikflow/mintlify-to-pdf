@@ -13,6 +13,7 @@
 #let wikio-mint = rgb("#C4E8E8")
 #let text-body = rgb("#374151")
 #let text-light = rgb("#9ca3af")
+#let current-section = state("current-section", "")
 
 // ============================================
 // DOCUMENT TEMPLATE
@@ -38,7 +39,10 @@
     header: context {
       if counter(page).get().first() > 2 {
         set text(size: 8pt, fill: text-light, weight: "semibold")
-        text(tracking: 0.1em)[#upper[WIKIO AI DOCUMENTATION]]
+        let section = current-section.get()
+        if section != "" {
+          text(tracking: 0.1em)[#upper[#section]]
+        }
         h(1fr)
         let chapter = query(selector(heading.where(level: 1)).before(here()))
         if chapter.len() > 0 {
@@ -50,7 +54,7 @@
       if counter(page).get().first() > 1 {
         box(height: 14pt, image("assets/Wikio_AI_logo_black.png"))
         h(1fr)
-        text(weight: "bold", fill: wikio-navy, size: 11pt)[#counter(page).display()]
+        text(weight: "bold", fill: wikio-navy, size: 11pt)[#counter(page).display("01")]
       }
     },
   )
@@ -73,21 +77,21 @@
     pagebreak(weak: true)
     v(1cm)
     block[
-      #set text(size: 28pt, weight: "extrabold", fill: wikio-navy, tracking: -0.02em)
+      #set text(size: 42pt, weight: "extrabold", fill: wikio-navy, tracking: -0.02em)
       #it.body
     ]
     v(0.3cm)
-    block(width: 3.5cm, height: 4pt, fill: wikio-coral)
-    v(0.8cm)
+    block(width: 3.5cm, height: 4pt, fill: rgb("#2d3a6b"))
+    v(1cm)
   }
 
   show heading.where(level: 2): it => {
-    v(0.8cm)
+    v(1cm)
     block[
       #set text(size: 16pt, weight: "bold", fill: wikio-navy)
       #it.body
     ]
-    v(0.3cm)
+    v(0.5cm)
   }
 
   show heading.where(level: 3): it => {
@@ -158,6 +162,9 @@
       it
     }
   }
+
+  // Figure captions - suppress "Figure N:" prefix
+  show figure.caption: it => align(center, text(size: 9pt, fill: text-light, style: "italic")[#it.body])
 
   // Wrap tables in styled blocks
   show table: it => block(
@@ -388,6 +395,7 @@
     inset: 16pt,
     radius: 6pt,
   )[
+    #set par(justify: false)
     #if title != "" {
       text(weight: "bold", fill: wikio-navy, size: 11pt)[#title]
       v(0.4em)
@@ -413,6 +421,7 @@
       inset: 16pt,
       radius: 8pt,
     )[
+      #set par(justify: false)
       #box(
         width: 28pt,
         height: 28pt,
@@ -518,6 +527,7 @@
   let text-color = if style == "dark" { white } else { wikio-navy }
   let desc-color = if style == "dark" { rgb("#d1d5db") } else { text-body }
 
+  current-section.update(title)
   pagebreak()
   page(
     margin: (x: 50pt, y: 60pt),
@@ -538,7 +548,7 @@
     #v(0.5cm)
 
     // Accent bar
-    #block(width: 3.5cm, height: 4pt, fill: wikio-coral)
+    #block(width: 3.5cm, height: 4pt, fill: wikio-cyan)
 
     #v(1cm)
 
